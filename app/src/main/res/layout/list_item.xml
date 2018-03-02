@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/list_item_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_blue_light"
+        tools:text = "sport"/>
+
+    <TextView
+        android:id="@+id/list_item_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textSize="@dimen/text_h1"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        tools:text="Titlul aceste senzationale stiri " />
+
+    <TextView
+        android:id="@+id/list_item_trail_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:textSize="@dimen/text_h2"
+        tools:text="Senzational, fenomenal, nemaipomenit, ramai prost cand o sa vezi asta, apasa aici daca vrei sa ai multi bani fara sa faci nimic" />
+
+    <TextView
+        android:id="@+id/list_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="@dimen/text_h3"
+        android:textColor="@android:color/darker_gray"
+        tools:text="01.10.1985" />
+
+</LinearLayout>
