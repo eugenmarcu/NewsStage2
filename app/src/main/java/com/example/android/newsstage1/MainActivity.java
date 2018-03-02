@@ -4,11 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String REQUEST_URL = "http://content.guardianapis.com/search?show-fields=trailText&api-key=test&&section=sport";
+    private static final String REQUEST_URL = "http://content.guardianapis.com/search?show-fields=trailText&api-key=test";
     /**
      * Constant value for the news loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -85,7 +89,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        return new NewsLoader(this, REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String category = sharedPrefs.getString(
+                getString(R.string.settings_category_key),
+                getString(R.string.settings_category_default));
+
+        String endDate = sharedPrefs.getString(
+                getString(R.string.settings_end_date_key),
+                getString(R.string.settings_end_date_default)
+        );
+        endDate+="-12-31";
+
+        Uri baseUri = Uri.parse(REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter(getString(R.string.settings_category_key), category);
+        uriBuilder.appendQueryParameter(getString(R.string.settings_end_date_key), endDate);
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -101,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             updateUi();
         }
 
-
         // Hide progress bar
         ProgressBar progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -110,5 +131,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
         mNewsList.clear();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

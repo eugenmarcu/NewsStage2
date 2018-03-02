@@ -2,4 +2,17 @@
     <string name="app_name">News Stage1</string>
     <string name="no_internet">No internet connection.</string>
     <string name="no_news_found">No news found.</string>
+    <string name="settings_menu_item">Settings</string>
+    <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
+    <string name="settings_title">News feed Settings</string>
+
+    <!-- Strings For End Date Preference [CHAR LIMIT=30] -->
+    <string name="settings_end_date_label">From year</string>
+    <string name="settings_end_date_key" translatable="false">to-date</string>
+    <string name="settings_end_date_default" translatable="false">2018</string>
+
+    <!-- Strings For Category Preference [CHAR LIMIT=30] -->
+    <string name="settings_category_label">Search</string>
+    <string name="settings_category_key" translatable="false">q</string>
+    <string name="settings_category_default" translatable="false">sport</string>
 </resources>
