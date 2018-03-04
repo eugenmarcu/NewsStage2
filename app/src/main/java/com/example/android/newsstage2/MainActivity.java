@@ -1,4 +1,4 @@
-package com.example.android.newsstage1;
+package com.example.android.newsstage2;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String REQUEST_URL = "http://content.guardianapis.com/search?show-fields=trailText&api-key=test";
+    private static final String REQUEST_URL = "http://content.guardianapis.com/search?show-fields=trailText%2Cbyline&api-key=test";
     /**
      * Constant value for the news loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -76,10 +76,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private boolean isInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     public void updateUi() {

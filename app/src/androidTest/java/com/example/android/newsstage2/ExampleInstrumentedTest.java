@@ -1,4 +1,4 @@
-package com.example.android.newsstage1;
+package com.example.android.newsstage2;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

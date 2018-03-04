@@ -1,4 +1,4 @@
-package com.example.android.newsstage1;
+package com.example.android.newsstage2;
 
 import android.util.Log;
 
@@ -22,6 +22,10 @@ import java.util.ArrayList;
 
 public final class QueryUtils {
 
+
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 15000;
+    private static final int SUCCESSFUL_CODE = 200;
 
     private QueryUtils() {
     }
@@ -75,14 +79,14 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT /* milliseconds */);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == SUCCESSFUL_CODE) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -142,14 +146,15 @@ public final class QueryUtils {
             for (int i = 0; i <= resultsArray.length(); i++) {
                 JSONObject obj = resultsArray.getJSONObject(i);
                 String title, url;
-                String date, category, context;
+                String date, category, context, author;
                 title = obj.getString("webTitle");
                 url = obj.getString("webUrl");
                 date = obj.getString("webPublicationDate");
                 category = obj.getString("sectionName");
                 JSONObject fields = obj.getJSONObject("fields");
                 context = fields.getString("trailText");
-                news.add(new News(title, url, date, category, context));
+                author = fields.getString("byline");
+                news.add(new News(title, url, date, category, context, author));
             }
 
         } catch (JSONException e) {

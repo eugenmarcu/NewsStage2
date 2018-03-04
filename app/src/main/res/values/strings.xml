@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">News Stage1</string>
+    <string name="app_name">News Stage2</string>
     <string name="no_internet">No internet connection.</string>
     <string name="no_news_found">No news found.</string>
     <string name="settings_menu_item">Settings</string>
@@ -15,4 +15,6 @@
     <string name="settings_category_label">Search</string>
     <string name="settings_category_key" translatable="false">q</string>
     <string name="settings_category_default" translatable="false">sport</string>
+
+    <string name="by">"by "</string>
 </resources>

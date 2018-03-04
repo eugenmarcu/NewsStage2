@@ -1,4 +1,4 @@
-package com.example.android.newsstage1;
+package com.example.android.newsstage2;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -20,8 +20,11 @@ import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
+    Context context;
+
     public NewsAdapter(@NonNull Context context, List<News> newsList) {
         super(context, 0, newsList);
+        this.context = context;
     }
 
     @NonNull
@@ -40,6 +43,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
         trailText.setText(currentNews.getTrailText());
         TextView date = listItemView.findViewById(R.id.list_item_date);
         date.setText(formatDate(currentNews.getDate()));
+        TextView author = listItemView.findViewById(R.id.list_item_author);
+        author.setText(context.getString(R.string.by) + currentNews.getAuthor());
 
         return listItemView;
     }
